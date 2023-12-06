@@ -1,6 +1,13 @@
+// eslint.config.js
 import antfu from '@antfu/eslint-config'
 
-export default antfu(
+export default await antfu(
+  {
+    ignores: [
+      'public',
+      'dist*',
+    ],
+  },
   {
     rules: {
       'style/semi': ['error', 'never'],
@@ -20,5 +27,5 @@ export default antfu(
       'ts/comma-dangle': 'off',
       'ts/no-unused-vars': 'off',
     },
-  },
+  }
 )

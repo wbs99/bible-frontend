@@ -9,9 +9,9 @@ type Props<T> = {
   disableError?: boolean // 是否需要显示 error
   className?: string
 } & (
-    | { type?: 'text' }
-    | { type: 'textarea' }
-    | { type: 'select'; options: { value: string; text: string }[] }
+  | { type?: 'text' }
+  | { type: 'textarea' }
+  | { type: 'select', options: { value: string, text: string }[] }
   )
 export const Input = <T extends string>(props: Props<T>) => {
   const { label, placeholder, value, onChange: _onChange, errorMessage, disableError, className } = props
@@ -25,15 +25,16 @@ export const Input = <T extends string>(props: Props<T>) => {
     switch (props.type) {
       case undefined:
       case 'text':
-        return <input className='p-input-text' type='text' {...common} />
+        return <input className="p-input-text" type="text" {...common} />
       case 'textarea':
-        return <textarea className='pl-16px py-8px border text-gray-700 text-18px rounded-8px appearance-none resize-none rounded-md' rows={5} cols={35} {...common} />
+        return <textarea className="pl-16px py-8px border text-gray-700 text-18px rounded-8px appearance-none resize-none rounded-md" rows={5} cols={35} {...common} />
       case 'select':
-        return <select className='h-36px' {...common}>
-          {props.options.map(option =>
-            <option key={option.value} value={option.value}>{option.text}</option>)
-          }
-        </select>
+        return (
+          <select className="h-36px" {...common}>
+            {props.options.map(option =>
+              <option key={option.value} value={option.value}>{option.text}</option>)}
+          </select>
+        )
       default:
         return null
     }

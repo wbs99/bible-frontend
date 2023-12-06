@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => {
       open: true,
       proxy: {
         '/api/v1': {
-          target: 'http://121.5.55.95:3000/',
+          target: 'http://118.31.32.176:3001/',
           changeOrigin: command === 'serve',
         },
       }

@@ -1,7 +1,6 @@
 import { animated, useSpring } from '@react-spring/web'
-import { Children, ReactNode, useState } from 'react'
-import { CurrentUser } from './TopMenu/CurrentUser'
-import { Menu } from './TopMenu/Menu'
+import type { ReactNode } from 'react'
+import { useState } from 'react'
 
 type Props = {
   onClickMask?: () => void
@@ -36,9 +35,12 @@ export const LeftMenu = (props: Props) => {
 
   return (
     <>
-      <animated.div className="fixed top-0 right-0 w-100% h-100% z-[calc(var(--z-menu)-1)] bg-black:75" style={markStyle} onClick={onClickMask}
+      <animated.div
+        className="fixed top-0 right-0 w-100% h-100% z-[calc(var(--z-menu)-1)] bg-black:75"
+        style={markStyle}
+        onClick={onClickMask}
       />
-      <animated.div className='fixed top-0 right-0 w-70vw max-w-20em h-100% z-[var(--z-menu)] flex flex-col' style={menuStyle}>
+      <animated.div className="fixed top-0 right-0 w-70vw max-w-20em h-100% z-[var(--z-menu)] flex flex-col" style={menuStyle}>
         {children}
       </animated.div>
     </>

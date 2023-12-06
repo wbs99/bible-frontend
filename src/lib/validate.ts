@@ -7,17 +7,17 @@ type Rule<T> = {
 } & (
   { type: 'required' } |
   { type: 'chinese' } |
-  { type: 'equalField'; field: keyof T } |
-  { type: 'pattern'; regex: RegExp } |
-  { type: 'notEqual'; value: JSONValue } |
-  { type: 'length'; min?: number; max?: number }
+  { type: 'equalField', field: keyof T } |
+  { type: 'pattern', regex: RegExp } |
+  { type: 'notEqual', value: JSONValue } |
+  { type: 'length', min?: number, max?: number }
 )
 type Rules<T> = Rule<T>[]
 
 type FormError<T> = {
   [k in keyof T]?: string[]
 }
-export type { Data, FormError, Rule, Rules };
+export type { Data, FormError, Rule, Rules }
 
 export const validate = <T extends Data>(formData: T, rules: Rules<T>): FormError<T> => {
   const error: FormError<T> = {}

@@ -6,6 +6,7 @@ type CreateBibleStore = {
   data: Partial<Data>
   error: FormError<Data>
   setData: (data: Partial<Data>) => void
+  resetData: () => void
   setError: (error: Partial<FormError<Data>>) => void
 }
 
@@ -19,6 +20,16 @@ export const useCreateBibleStore = createImmerStore<CreateBibleStore>(set => ({
   setData: data => set(
     (state) => {
       Object.assign(state.data, data)
+    },
+  ),
+  resetData: () => set(
+    (state) => {
+      Object.assign(state.data, {
+        content: '',
+        volume: '',
+        chapter: '',
+        section: '',
+      })
     },
   ),
   error: {
