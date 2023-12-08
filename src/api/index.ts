@@ -20,10 +20,13 @@ export const getMeApi = () => {
 export const addBibleApi = (data: Partial<BibleItem>) => http.post<Resource<BibleItem>>('/api/v1/bibles', data)
 
 export const getBibleApi = () => {
-  const { data, error, isLoading } = useSWR('/api/v1/bibles', async (path) => {
-    const response = await http.get<Resource<BibleItem>>(path)
-    return response.data.resource
-  })
+  const { data, error, isLoading } = useSWR(
+    '/api/v1/bibles', async (path) => {
+      const response = await http.get<Resource<BibleItem>>(path)
+      return response.data.resource
+    },
+    { refreshInterval: 5000 }
+  )
 
   return { data, error, isLoading }
 }

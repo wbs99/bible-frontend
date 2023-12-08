@@ -93,77 +93,77 @@ export const HomePage = (props: Props) => {
     setData({ content: replacePunctuation(content) })
   }
 
-  const { data: bible, isLoading } = getBibleApi()
+  const { data: bible, isLoading, error: bibleError } = getBibleApi()
+  if (bibleError) {
+    return <CenterDiv>数据加载失败，请刷新页面</CenterDiv>
+  }
+  if (isLoading) {
+    return <CenterDiv>loading...</CenterDiv>
+  }
 
-  if (!bible) {
-    return (
-      <div>
-        {error && <CenterDiv>数据加载失败，请刷新页面</CenterDiv>}
-        {isLoading && <CenterDiv>loading...</CenterDiv>}
-      </div>
-    )
-  }
-  else {
-    return (
-      <div className="p-6 flex flex-col justify-between h-80vh">
-        <header>
-          <Icon name="logo" className="w-6em h-6em color-#992827" onClick={onClick} />
-        </header>
-        <main className="rounded-md shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] p-4">
-          <div>
-            {bible.content}
-          </div>
-          <div className="text-right mt-4">
-            ——
-            {' '}
-            {bible.volume}
-            {' '}
-            {bible.chapter}
-            ：
-            {bible.section}
-          </div>
-        </main>
-        <footer className="text-center">
-          <button className="p-btn" onClick={getBibleApi}>footer</button>
-        </footer>
-        <LeftMenu visible={visible} onClickMask={() => setVisible(false)}>
-          <form className="bg-white h-100% rounded-l-lg p-4" onSubmit={onSubmit}>
-            <Input
-              type="textarea"
-              label="内容"
-              placeholder="请输入"
-              value={data.content}
-              onChange={onContentChange}
-              errorMessage={error.content?.[0]}
-            />
-            <Input
-              type="text"
-              label="卷"
-              placeholder="请输入"
-              value={data.volume}
-              onChange={volume => setData({ volume })}
-              errorMessage={error.volume?.[0]}
-            />
-            <Input
-              type="text"
-              label="章"
-              placeholder="请输入"
-              value={data.chapter}
-              onChange={chapter => setData({ chapter: chapter.replace(/[^\d]/g, '') })}
-              errorMessage={error.chapter?.[0]}
-            />
-            <Input
-              type="text"
-              label="节"
-              placeholder="请输入"
-              value={data.section}
-              onChange={section => setData({ section })}
-              errorMessage={error.section?.[0]}
-            />
-            <button type="submit" className="p-btn">提交</button>
-          </form>
-        </LeftMenu>
-      </div>
-    )
-  }
+  return (
+    <div className="p-6 flex flex-col justify-between h-80vh">
+      <header>
+        <Icon name="logo" className="w-6em h-6em color-#992827" onClick={onClick} />
+      </header>
+      <main className="rounded-md shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] p-4">
+        {bible
+          ? (<>
+              <div>
+                {bible?.content}
+              </div>
+              <div className="text-right mt-4">
+                ——
+                {' '}
+                {bible?.volume}
+                {' '}
+                {bible?.chapter}
+                ：
+                {bible?.section}
+              </div>
+            </>)
+          : <>暂无数据</>}
+      </main>
+      <footer className="text-center">
+        <button className="p-btn" onClick={() => getBibleApi}>footer</button>
+      </footer>
+      <LeftMenu visible={visible} onClickMask={() => setVisible(false)}>
+        <form className="bg-white h-100% rounded-l-lg p-4" onSubmit={onSubmit}>
+          <Input
+            type="textarea"
+            label="内容"
+            placeholder="请输入"
+            value={data.content}
+            onChange={onContentChange}
+            errorMessage={error.content?.[0]}
+          />
+          <Input
+            type="text"
+            label="卷"
+            placeholder="请输入"
+            value={data.volume}
+            onChange={volume => setData({ volume })}
+            errorMessage={error.volume?.[0]}
+          />
+          <Input
+            type="text"
+            label="章"
+            placeholder="请输入"
+            value={data.chapter}
+            onChange={chapter => setData({ chapter: chapter.replace(/[^\d]/g, '') })}
+            errorMessage={error.chapter?.[0]}
+          />
+          <Input
+            type="text"
+            label="节"
+            placeholder="请输入"
+            value={data.section}
+            onChange={section => setData({ section })}
+            errorMessage={error.section?.[0]}
+          />
+          <button type="submit" className="p-btn">提交</button>
+        </form>
+      </LeftMenu>
+    </div>
+  )
 }
