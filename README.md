@@ -6,7 +6,7 @@ pnpm config set save-prefix=''  // 锁定 npm 版本号
 # 开发
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
 # mock 

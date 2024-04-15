@@ -105,10 +105,12 @@ export const HomePage = (props: Props) => {
     <div className="p-6 flex flex-col justify-between h-80vh">
       <header>
         <Icon name="logo" className="w-6em h-6em color-#992827" onClick={onClick} />
+        测试修改
       </header>
       <main className="rounded-md shadow-[rgba(7,_65,_210,_0.1)_0px_9px_30px] p-4">
         {bible
-          ? (<>
+          ? (
+            <>
               <div>
                 {bible?.content}
               </div>
@@ -121,7 +123,8 @@ export const HomePage = (props: Props) => {
                 ：
                 {bible?.section}
               </div>
-            </>)
+            </>
+            )
           : <>暂无数据</>}
       </main>
       <footer className="text-center">
